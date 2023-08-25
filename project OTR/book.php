@@ -236,6 +236,7 @@
       border-bottom-width: 2px;
       transition: all 0.3s ease;
     }
+ 
 
     .user-details .input-box textarea {
       height: 80px;
@@ -248,6 +249,18 @@
       border-bottom-width: 2px;
       transition: all 0.3s ease;
     }
+
+    .flex {
+  display: flex;
+  justify-content: space-between;
+}
+.user-details .input-box .input_box-smal input{
+      width:90%;
+    }
+    .user-details .input-box .input_box-small input{
+      width:90%;
+    }
+
 
     .user-details .input-box input:focus,
     .user-details .input-box input:valid {
@@ -346,17 +359,117 @@
               <input type="number" placeholder="Enter your number" name="phone_no" required>
             </div>
             <div class="input-box">
-              <span class="details">Number of People</span>
-              <input type="number" placeholder="Enter number of people" name="no_of_people" required>
-            </div>
+  <div class="flex">
+    <div class="input_box-smal">
+      <span class="details">No. of People</span>
+      <input type="number" placeholder="Enter no." name="no_of_people" required>
+    </div>
+
+
+<div class="input-box">
+  <span class="details">Tables</span>
+ <select name="tables" required  style="height: 45px;
+              width: 100%;
+              outline: none;
+              font-size: 16px;
+              border-radius: 5px;
+              padding-left: 15px;
+              border: 1px solid #ccc;
+                border-bottom-width: 1px;
+              border-bottom-width: 1px;
+              border-bottom-width: 2px;
+              transition: all 0.3s ease;" >
+    <option value="" disabled selected>Select table</option>
+    <option value="Table 1">Table 1</option>
+    <option value="Table 2">Table 2</option>
+    <option value="Table 1">Table 3</option>
+    <option value="Table 2">Table 4</option>
+    <option value="Table 1">Table 5</option>
+    <option value="Table 2">Table 6</option>
+  </select>
+  <?php
+if (isset($_GET['tablestatus'])) {
+  echo '<p id="warning-message" style="color: red;">' . $_GET['tablestatus'] . '</p>';
+} else {
+  echo '<p id="warning-message" style="color: red; display: none;"></p>';
+}
+?>
+
+</div>
+
+
+
+  </div>
+</div>
             <div class="input-box">
               <span class="details">Date</span>
               <input type="date" placeholder="Enter the date" name="date" required>
             </div>
             <div class="input-box">
-              <span class="details">Time</span>
-              <input type="time" placeholder="Enter the time" name="time" required>
-            </div>
+  <span class="details">Time</span>
+  <div class="flex">
+    <div class="input_box-smal">
+    <select name="time_hour" style="height: 45px;
+              width: 100%;
+              outline: none;
+              font-size: 16px;
+              border-radius: 5px;
+              padding-left: 15px;
+              border: 1px solid #ccc;
+                border-bottom-width: 1px;
+              border-bottom-width: 1px;
+              border-bottom-width: 2px;
+              transition: all 0.3s ease;" required>
+        <option value="" disabled selected>Hour</option>
+        <!-- Add options for hours (1 to 12) -->
+        <?php
+        for ($hour = 1; $hour <= 12; $hour++) {
+          echo "<option value=\"$hour\">$hour</option>";
+        }
+        ?>
+      </select>
+    </div>
+    <div class="input_box-small">
+      <select name="time_minute" style="height: 45px;
+              width: 100%;
+              outline: none;
+              font-size: 16px;
+              border-radius: 5px;
+              padding-left: 15px;
+              border: 1px solid #ccc;
+                border-bottom-width: 1px;
+              border-bottom-width: 1px;
+              border-bottom-width: 2px;
+              transition: all 0.3s ease;"  required>
+        <option value="" disabled selected>Minute</option>
+        <!-- Add options for minutes (00 to 59) -->
+        <?php
+        for ($minute = 0; $minute <= 59; $minute++) {
+          echo "<option value=\"$minute\">$minute</option>";
+        }
+        ?>
+      </select>
+    </div>
+    <div class="input_box-small">
+      <select name="time_period" style="height: 45px;
+              width: 100%;
+              outline: none;
+              font-size: 16px;
+              border-radius: 5px;
+              padding-left: 15px;
+              border: 1px solid #ccc;
+                border-bottom-width: 1px;
+              border-bottom-width: 1px;
+              border-bottom-width: 2px;
+              transition: all 0.3s ease;"  required>
+        <option value="" disabled selected>Period</option>
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+  </div>
+</div>
+
             <div class="input-box">
             <span class="details">Description</span>
             <textarea name="note" id="note" rows="4"></textarea>
@@ -402,6 +515,20 @@
   </p>
 </div>
 </footer>
+<script>
+  // Wait for the document to be fully loaded
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the warning message element
+    var warningMessage = document.getElementById("warning-message");
+    
+    // Check if the warning message has content
+    if (warningMessage.innerHTML.trim() !== "") {
+      // Display the warning message
+      warningMessage.style.display = "block";
+    }
+  });
+</script>
+
 </body>
 
 </html>

@@ -11,3 +11,7 @@ $conn = mysqli_connect($sname, $unmae, $password, $db_name);
 if (!$conn) {
 	echo "Connection failed!";
 }
+
+
+define("UPLOAD_SRC",$_SERVER['DOCUMENT_ROOT']."/ad_menu_php/uploads/");
+?>

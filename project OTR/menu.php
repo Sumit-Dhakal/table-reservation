@@ -1,3 +1,7 @@
+<?php
+// Define FETCH_SRC constant
+define("FETCH_SRC", "http://127.0.0.1/project%20OTR-20230718T135333Z-001/project%20OTR/admin/uploads/");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -266,34 +270,38 @@
   </nav>
 
   <body>
-    <div class="main">
-      <div class="container">
-        <div class="card">
-          <img src="img\about_img.jpg">
-          <div class="card-content">
-            <h3>Menu Item</h3>
-            <p>Here I am gonna put the description of the item in the food menu.</p>
-            <a href="" class="button">Rs. 2000</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="img\about_img.jpg">
-          <div class="card-content">
-            <h3>Menu Item</h3>
-            <p>Here I am gonna put the description of the item in the food menu.</p>
-            <a href="" class="button">Rs. 2000</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="img\about_img.jpg">
-          <div class="card-content">
-            <h3>Menu Item</h3>
-            <p>Here I am gonna put the description of the item in the food menu.</p>
-            <a href="" class="button">Rs. 2000</a>
-          </div>
-        </div>
-      </div>
+    
+  <div class="main">
+    <div class="container">
+      <?php
+      // Database connection code (similar to your ad_menu_php.php file)
+      $con = mysqli_connect("localhost", "root", "", "cherry_bloom");
+      
+      if (mysqli_connect_errno()) {
+        die("Cannot Connect to Database: " . mysqli_connect_error());
+      }
+
+      // Fetch menu items from the database
+      $query = "SELECT * FROM menu";
+      $result = mysqli_query($con, $query);
+
+      // Loop through fetched data and generate menu cards
+      while ($fetch = mysqli_fetch_assoc($result)) {
+        echo '<div class="card">';
+        echo '<img src="' . FETCH_SRC . $fetch['image'] . '">';
+        echo '<div class="card-content">';
+        echo '<h3>' . $fetch['name'] . '</h3>';
+        echo '<p>' . $fetch['description'] . '</p>';
+        echo '<a href="" class="button">Rs. ' . $fetch['price'] . '</a>';
+        echo '</div>';
+        echo '</div>';
+      }
+
+      // Close database connection
+      mysqli_close($con);
+      ?>
     </div>
+  </div>
 
 
     <!-- this is the footer of the page -->

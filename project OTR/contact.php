@@ -217,7 +217,7 @@
       right: -15px;
       top: 50%;
       transform: translateY(-50%);
-      /* background: #afafb6; */
+      
     }
 
     .content .left-side .details {
@@ -369,7 +369,7 @@
         <div class="left-side">
           <div class="address details">
             <i class="fas fa-map-marker-alt"></i>
-            <div class="topic">Address</div>
+            <!-- <div class="topic">Address</div>
             <div class="text-one">Surkhet, NP12</div>
             <div class="text-two">Birendranagar 06</div>
           </div>
@@ -383,7 +383,7 @@
             <i class="fas fa-envelope"></i>
             <div class="topic">Email</div>
             <div class="text-one">codinglab@gmail.com</div>
-            <div class="text-two">info.codinglab@gmail.com</div>
+            <div class="text-two">info.codinglab@gmail.com</div> -->
           </div>
         </div>
         <div class="right-side">
