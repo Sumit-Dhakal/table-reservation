@@ -1,6 +1,8 @@
 <?php
 include "dp_connect.php";
 
+session_start(); // Start the session
+
 if (isset($_POST['submit'])) {
   $full_name = $_POST['full_name'];
   $email = $_POST['email'];
@@ -23,20 +25,23 @@ if (isset($_POST['submit'])) {
   $checkResult = mysqli_query($conn, $checkSql);
   if (mysqli_num_rows($checkResult) > 0) {
     $tablestatus = "This table is already booked for the chosen date and time.";
+    $_SESSION['booking_success'] = false; // Set session variable for failure
     header("Location: book.php?tablestatus=" . urlencode($tablestatus));
     exit();
   } else {
     // Insert the booking information into the database
     $insertSql = "INSERT INTO book_table (full_name, email, phone_number, no_of_people, date, time, tables, description) 
-                  VALUES ('$full_name','$email','$phone_no','$no_of_people','$date','$time','$tables','$note')";
-    if (mysqli_query($conn, $insertSql)) {
-      header("Location: book.php");
-      exit();
-    } else {
-      $tablestatus = "Error: " . mysqli_error($conn);
-      header("Location: book.php?tablestatus=" . urlencode($tablestatus));
-      exit();
-    }
+    VALUES ('$full_name','$email','$phone_no','$no_of_people','$date','$time','$tables','$note')";
+if (mysqli_query($conn, $insertSql)) {
+$_SESSION['booking_success'] = true; // Set session variable for success
+header("Location: book.php");
+exit();
+} else {
+$tablestatus = "Error: " . mysqli_error($conn);
+$_SESSION['booking_success'] = false; // Set session variable for failure
+header("Location: book.php?tablestatus=" . urlencode($tablestatus));
+exit();
+}
   }
   mysqli_close($conn);
 }

@@ -1,3 +1,16 @@
+<?php
+session_start();
+if (isset($_SESSION['booking_success']) && $_SESSION['booking_success']) {
+    $successMessage = "Table successfully booked!";
+    // Clear the session variable
+    unset($_SESSION['booking_success']);
+} else {
+    $successMessage = "";
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -360,10 +373,33 @@
             </div>
             <div class="input-box">
   <div class="flex">
-    <div class="input_box-smal">
-      <span class="details">No. of People</span>
-      <input type="number" placeholder="Enter no." name="no_of_people" required>
-    </div>
+  <div class="input_box-smal">
+  <span class="details">No. of People</span>
+  <select name="no_of_people" required style="height: 45px;
+          width: 100%;
+          outline: none;
+          font-size: 16px;
+          border-radius: 5px;
+          padding-left: 15px;
+          border: 1px solid #ccc;
+          border-bottom-width: 1px;
+          border-bottom-width: 1px;
+          border-bottom-width: 2px;
+          transition: all 0.3s ease;">
+    <option value="" disabled selected>Select no. of people</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+  </select>
+</div>
+
+      <!-- <input type="number" placeholder="Enter no." name="no_of_people" required> -->
+    
 
 
 <div class="input-box">
@@ -401,10 +437,12 @@ if (isset($_GET['tablestatus'])) {
 
   </div>
 </div>
-            <div class="input-box">
-              <span class="details">Date</span>
-              <input type="date" placeholder="Enter the date" name="date" required>
-            </div>
+<div class="input-box">
+  <span class="details">Date</span>
+  <input type="date" placeholder="Enter the date" name="date" required id="datePicker">
+</div>
+
+
             <div class="input-box">
   <span class="details">Time</span>
   <div class="flex">
@@ -479,6 +517,7 @@ if (isset($_GET['tablestatus'])) {
             <input type="submit" name="submit" value="Book Table">
           </div>
         </form>
+        <p style="color: green;"><?php echo $successMessage; ?></p>
       </div>
     </div>
   </div>
@@ -526,6 +565,19 @@ if (isset($_GET['tablestatus'])) {
       // Display the warning message
       warningMessage.style.display = "block";
     }
+
+    // Get the date picker element
+    var datePicker = document.getElementById("datePicker");
+    
+    // Get the current date and tomorrow's date
+    var currentDate = new Date();
+    
+    
+    // Convert dates to the 'YYYY-MM-DD' format
+    var currentDateString = currentDate.toISOString().split("T")[0];
+    
+    // Set the minimum and maximum date values for the date picker
+    datePicker.min = currentDateString;
   });
 </script>
 
